@@ -4,8 +4,13 @@
 
 Use a Docker image with an editor and connect the volume container:
 
-    docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn vi /etc/openvpn/openvpn.conf
+    docker run --volumes-from $OVPN_DATA --rm -it kylemanna/openvpn vi /etc/openvpn/openvpn.conf
 
+## How do I clear out the old config files to start the ovpn_genconfig process from scratch - to prevent it reading and appending to the existing configuration?
+
+    docker run --volumes-from $OVPN_DATA --rm -it kylemanna/openvpn /bin/bash
+    bash-4.4# cd /etc/openvpn/ && mv openvpn.conf openvpn.old && mv ovpn_env.sh ovpn_env.old && exit
+    
 
 ## Why not keep everything in one image?
 
